@@ -163,3 +163,68 @@ for column in date_columns:
 print("\n===== DATE DATA TYPES AFTER CONVERSION =====")
 
 print(cleaned_data[date_columns].dtypes)
+
+# STEP 14: OUTLIER DETECTION USING IQR
+
+numerical_columns = cleaned_data.select_dtypes(
+    include=["int64", "float64"]
+).columns
+
+print("\n===== OUTLIER DETECTION =====")
+
+for column in numerical_columns:
+
+    Q1 = cleaned_data[column].quantile(0.25)
+    Q3 = cleaned_data[column].quantile(0.75)
+
+    IQR = Q3 - Q1
+
+    lower_limit = Q1 - 1.5 * IQR
+    upper_limit = Q3 + 1.5 * IQR
+
+    outliers = cleaned_data[
+        (cleaned_data[column] < lower_limit) |
+        (cleaned_data[column] > upper_limit)
+    ]
+
+    print(f"{column}: {len(outliers)} outliers")
+
+# STEP 15: INVESTIGATE IMPORTANT NUMERICAL RANGES
+
+columns_to_check = [
+    "battery_age_days",
+    "cycle_count",
+    "avg_ambient_temp_c",
+    "internal_resistance_mohm",
+    "state_of_health_pct",
+    "remaining_useful_life_cycles"
+]
+
+print("\n===== IMPORTANT COLUMN RANGES =====")
+
+print(
+    cleaned_data[columns_to_check].describe()
+)
+
+# STEP 16: FINAL DATASET VALIDATION
+
+print("\n===== FINAL DATASET SHAPE =====")
+print(cleaned_data.shape)
+
+print("\n===== TOTAL MISSING VALUES =====")
+print(cleaned_data.isnull().sum().sum())
+
+print("\n===== MISSING VALUES BY COLUMN =====")
+print(cleaned_data.isnull().sum())
+
+print("\n===== DUPLICATE ROWS =====")
+print(cleaned_data.duplicated().sum())
+
+# STEP 17: SAVE CLEANED DATASET
+
+cleaned_data.to_csv(
+    "data/ev_battery_health_cleaned.csv",
+    index=False
+)
+
+print("\nCleaned dataset saved successfully!")
