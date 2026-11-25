@@ -105,7 +105,7 @@ print("\n===== NUMERICAL MISSING VALUES AFTER CLEANING =====")
 print(cleaned_data[numerical_columns].isnull().sum())
 
 
-# STEP 10: CHECK MISSING CATEGORICAL VALUES
+# STEP 10: CHECK** MISSING CATEGORICAL VALUES
 
 categorical_columns = cleaned_data.select_dtypes(
     include=["object", "str"]
@@ -115,7 +115,7 @@ print("\n===== CATEGORICAL MISSING VALUES =====")
 
 print(cleaned_data[categorical_columns].isnull().sum())
 
-# STEP 11: HANDLE MISSING CATEGORICAL VALUES
+# STEP 11: HANDLE*** MISSING CATEGORICAL VALUES
 
 columns_to_fill = [
     "chemistry",
@@ -135,3 +135,31 @@ for column in columns_to_fill:
 print("\n===== CATEGORICAL VALUES AFTER CLEANING =====")
 
 print(cleaned_data[columns_to_fill].isnull().sum())
+
+# STEP 12: DATE COLUMN ANALYSIS
+
+date_columns = [
+    "manufacture_date",
+    "observation_date",
+    "last_service_date"
+]
+
+print("\n===== DATE COLUMN DATA TYPES =====")
+
+print(cleaned_data[date_columns].dtypes)
+
+print("\n===== DATE COLUMN MISSING VALUES =====")
+
+print(cleaned_data[date_columns].isnull().sum())
+
+# STEP 13: CONVERT DATE COLUMNS TO DATETIME
+
+for column in date_columns:
+    cleaned_data[column] = pd.to_datetime(
+        cleaned_data[column],
+        errors="coerce"
+    )
+
+print("\n===== DATE DATA TYPES AFTER CONVERSION =====")
+
+print(cleaned_data[date_columns].dtypes)

@@ -109,6 +109,10 @@ sns.heatmap(
     cmap="coolwarm",
     fmt=".2f"
 )
+# corr() — Numerical columns ke beech correlation calculate karta hai.
+# annot=True — Heatmap ke cells mein correlation values show karta hai.
+# cmap="coolwarm" — Colors select karta hai.
+# fmt=".2f" — Values ko 2 decimal places tak show karta hai.
 
 plt.title("Correlation Heatmap of EV Battery Dataset")
 
