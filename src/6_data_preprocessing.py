@@ -224,3 +224,21 @@ print("SOH Testing:", np.isnan(X_soh_test_processed).sum())
 
 print("RUL Training:", np.isnan(X_rul_train_processed).sum())
 print("RUL Testing:", np.isnan(X_rul_test_processed).sum())
+
+#===============Save preprocessed data for model training ====================
+
+np.savez_compressed(
+    "data/processed_data.npz",
+
+    X_soh_train=X_soh_train_processed,
+    X_soh_test=X_soh_test_processed,
+    y_soh_train=y_soh_train.to_numpy(),
+    y_soh_test=y_soh_test.to_numpy(),
+
+    X_rul_train=X_rul_train_processed,
+    X_rul_test=X_rul_test_processed,
+    y_rul_train=y_rul_train.to_numpy(),
+    y_rul_test=y_rul_test.to_numpy()
+)
+
+print("\nPreprocessed data saved successfully!")
