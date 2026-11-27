@@ -1,0 +1,12 @@
+
+numpy
+pandas
+scikit-learn
+matplotlib
+joblib
+streamlit
+
+
+
+Install command:
+python -m pip install -r requirements.txt

@@ -227,6 +227,7 @@ print("RUL Testing:", np.isnan(X_rul_test_processed).sum())
 
 #===============Save preprocessed data for model training ====================
 
+
 np.savez_compressed(
     "data/processed_data.npz",
 
@@ -238,7 +239,27 @@ np.savez_compressed(
     X_rul_train=X_rul_train_processed,
     X_rul_test=X_rul_test_processed,
     y_rul_train=y_rul_train.to_numpy(),
-    y_rul_test=y_rul_test.to_numpy()
+    y_rul_test=y_rul_test.to_numpy(),
+
+    # Save original processed feature names
+    soh_feature_names=preprocessor.get_feature_names_out().astype(str),
+    rul_feature_names=rul_preprocessor.get_feature_names_out().astype(str)
 )
 
+# Save preprocessing pipelines
+import joblib
+
+joblib.dump(
+    preprocessor,
+    "data/soh_preprocessor.pkl"
+)
+
+joblib.dump(
+    rul_preprocessor,
+    "data/rul_preprocessor.pkl"
+)
+
+print("Preprocessing pipelines saved successfully!")
+
 print("\nPreprocessed data saved successfully!")
+
