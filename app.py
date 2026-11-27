@@ -814,6 +814,11 @@ div[data-baseweb="select"] span {{
     .stats, .steps, .result-grid {{ grid-template-columns: 1fr; }}
     .stat + .stat {{ border-left: none; border-top: 1px solid var(--line); }}
     .section {{ grid-template-columns: 1fr; }}
+    .block-container {{ padding-left: 1rem !important; padding-right: 1rem !important; padding-top: 1.5rem !important; }}
+    .hero h1 {{ font-size: clamp(28px, 7vw, 44px); }}
+    .result-card .val {{ font-size: 38px; }}
+    .stat .value {{ font-size: 36px; }}
+    .footer {{ flex-direction: column; gap: 6px; text-align: center; }}
 }}
 </style>
 """,
